@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "421168839378",
+    "firebase_url": "https://palvi-agrico-6e36d-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "palvi-agrico-6e36d",
+    "storage_bucket": "palvi-agrico-6e36d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:421168839378:android:90320860797e9ee5714b0b",
+        "android_client_info": {
+          "package_name": "com.pt.palviagrico"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "421168839378-4gmj9de9j6c30h1nbnna8fk8b2nkrr2l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChSgqgFcik35s2xxeKxFBrAFOhkhySM00"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "421168839378-4gmj9de9j6c30h1nbnna8fk8b2nkrr2l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "421168839378-iqmccr0qrms1c0fgf8s923t2oatobjjh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.pt.palviagrico"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:421168839378:android:fe601b76228bea4a714b0b",
+        "android_client_info": {
+          "package_name": "com.pt.palviagricodelivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "421168839378-4gmj9de9j6c30h1nbnna8fk8b2nkrr2l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChSgqgFcik35s2xxeKxFBrAFOhkhySM00"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "421168839378-4gmj9de9j6c30h1nbnna8fk8b2nkrr2l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "421168839378-iqmccr0qrms1c0fgf8s923t2oatobjjh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.pt.palviagrico"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
