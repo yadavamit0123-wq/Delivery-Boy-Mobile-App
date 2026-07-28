@@ -42,12 +42,8 @@ class _OrderLiveTrackingScreenState extends State<OrderLiveTrackingScreen> {
     if(widget.orderModel!.shippingAddress != null){
       Get.find<OrderController>().setSelectedOrderLatLng(
         LatLng(
-          (widget.orderModel!.shippingAddress!.latitude != null && widget.orderModel!.shippingAddress!.latitude != '0' && widget.orderModel!.shippingAddress!.latitude != '') ?
-          double.parse(widget.orderModel!.shippingAddress!.latitude!) : _defaut.latitude,
-
-          (widget.orderModel!.shippingAddress!.longitude != null && widget.orderModel!.shippingAddress!.longitude != '0' && widget.orderModel!.shippingAddress!.longitude != '') ?
-          double.parse(widget.orderModel!.shippingAddress!.longitude!) :
-          _defaut.longitude
+          _usableCoord(widget.orderModel!.shippingAddress!.latitude, _defaut.latitude),
+          _usableCoord(widget.orderModel!.shippingAddress!.longitude, _defaut.longitude),
         ));
     }
 
@@ -68,8 +64,10 @@ class _OrderLiveTrackingScreenState extends State<OrderLiveTrackingScreen> {
                           onMapCreated: (GoogleMapController controller){
                             riderController.mapController = controller;
                             LatLng destination = widget.orderModel!.shippingAddress != null?
-                            LatLng(double.parse(widget.orderModel!.shippingAddress!.latitude!),
-                                double.parse(widget.orderModel!.shippingAddress!.longitude!))  : riderController.initialPosition;
+                            LatLng(
+                              _usableCoord(widget.orderModel!.shippingAddress!.latitude, riderController.initialPosition.latitude),
+                              _usableCoord(widget.orderModel!.shippingAddress!.longitude, riderController.initialPosition.longitude),
+                            ) : riderController.initialPosition;
                            riderController.getPolyline(from: riderController.initialPosition, to: destination);
                            riderController.setFromToMarker(from: riderController.initialPosition, to: destination) ;
                           },
@@ -108,5 +106,12 @@ class _OrderLiveTrackingScreenState extends State<OrderLiveTrackingScreen> {
           }
       ),
     );
+  }
+
+  double _usableCoord(String? value, double fallback) {
+    if (value == null || value.isEmpty || value == '0' || value == '0.0') {
+      return fallback;
+    }
+    return double.tryParse(value) ?? fallback;
   }
 }

@@ -40,8 +40,8 @@ class OnGoingOrderWidget extends StatelessWidget {
                 expanded: Column(children: [
                   InkWell(onTap: () {
                     Get.to(()=>OrderDetailsScreen(orderModel: orderModel, fromNotification: false));
-                    Get.find<OrderController>().selectedOrderLatLng(orderModel?.shippingAddress?.latitude??'23',
-                      orderModel?.shippingAddress?.longitude??'90');
+                    Get.find<OrderController>().selectedOrderLatLng(orderModel?.shippingAddress?.latitude??'28.6139',
+                      orderModel?.shippingAddress?.longitude??'77.2090');
                   },
                   child: OngoingOrderHeaderWidget(orderModel: orderModel, index: index, isExpanded: true)),
 
@@ -67,7 +67,7 @@ class OnGoingOrderWidget extends StatelessWidget {
                             Theme.of(context).primaryColor.withValues(alpha:.5))),
                           SizedBox(width: Dimensions.paddingSizeSmall),
                           Text('${'expected_date'.tr} : ', style: rubikRegular.copyWith(fontSize: Dimensions.fontSizeSmall),),
-                          Text(orderModel!.expectedDate??'', style: rubikRegular.copyWith(fontSize: Dimensions.fontSizeSmall, color: Get.isDarkMode ? Theme.of(context).hintColor : Colors.black))]),
+                          Text(DateConverter.formatExpectedDeliveryDate(orderModel!.expectedDate), style: rubikRegular.copyWith(fontSize: Dimensions.fontSizeSmall, color: Get.isDarkMode ? Theme.of(context).hintColor : Colors.black))]),
                       ) : const SizedBox(),
                     ])),
 

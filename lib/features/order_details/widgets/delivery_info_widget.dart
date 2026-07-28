@@ -40,9 +40,12 @@ class DeliveryInfoWidget extends StatelessWidget {
           ),
         ]),
 
-        (orderModel!.shippingAddress?.contactPersonName != null && orderModel!.shippingAddress!.contactPersonName!.isNotEmpty)
-            && (orderModel!.shippingAddress?.phone != null && orderModel!.shippingAddress!.phone!.isNotEmpty)
-            && (orderModel!.shippingAddress != null) ?
+        (orderModel!.shippingAddress != null) &&
+            (
+              (orderModel!.shippingAddress?.address != null && orderModel!.shippingAddress!.address!.trim().isNotEmpty) ||
+              (orderModel!.shippingAddress?.contactPersonName != null && orderModel!.shippingAddress!.contactPersonName!.trim().isNotEmpty) ||
+              (orderModel!.shippingAddress?.phone != null && orderModel!.shippingAddress!.phone!.trim().isNotEmpty)
+            ) ?
         Column(children: [
           OrderItemInfoWidget(title: 'name',info: orderModel!.shippingAddress?.contactPersonName?? '', textStyle: rubikMedium.copyWith(
               fontSize: Dimensions.fontSizeSmall,
@@ -54,8 +57,11 @@ class DeliveryInfoWidget extends StatelessWidget {
               color: Theme.of(context).textTheme.bodyLarge?.color
           )),
 
-          OrderItemInfoWidget(title: 'location', info: orderModel!.shippingAddress != null ?
-          '${orderModel!.shippingAddress?.address}, ''${orderModel!.shippingAddress?.city}, ''${orderModel!.shippingAddress?.zip}' :  '',
+          OrderItemInfoWidget(title: 'location', info: [
+            orderModel!.shippingAddress?.address,
+            orderModel!.shippingAddress?.city,
+            orderModel!.shippingAddress?.zip,
+          ].where((part) => part != null && part.toString().trim().isNotEmpty).join(', '),
               textStyle: rubikMedium.copyWith(
                   fontSize: Dimensions.fontSizeSmall,
                   color: Theme.of(context).textTheme.bodyLarge?.color

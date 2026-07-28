@@ -32,6 +32,18 @@ class DateConverter {
     return DateFormat('dd-MMM-yyyy').format(dateTime.toLocal());
   }
 
+  static String formatExpectedDeliveryDate(String? raw) {
+    if (raw == null || raw.trim().isEmpty) {
+      return '--';
+    }
+    try {
+      final part = raw.split(' at ').first.trim();
+      return formatDateToDayMonthYear(DateTime.parse(part));
+    } catch (_) {
+      return raw;
+    }
+  }
+
   static DateTime dateTimeStringToDate(String dateTime) {
     return DateFormat('yyyy-MM-dd HH:mm:ss').parse(dateTime);
   }

@@ -101,10 +101,10 @@ class OrderModel {
         : null;
 
     orderNote = json['order_note'];
-    billingAddress = json['billing_address_data'] != null ? ShippingAddress.fromJson(json['billing_address_data']) : null;
+    billingAddress = _parseShippingAddress(json['billing_address_data']);
     sellerInfo = json['seller'] != null ? SellerInfo.fromJson(json['seller']) : null;
     if(json['expected_delivery_date'] != null){
-      expectedDate = json['expected_delivery_date'];
+      expectedDate = json['expected_delivery_date'].toString();
     }
 
     if(json['deliveryman_charge'] != null){
@@ -127,15 +127,49 @@ class OrderModel {
       }
     }
 
-    shippingAddress = json['shipping_address'] != null
-        ? ShippingAddress.fromJson(json['shipping_address'])
-        : null;
+    // Prefer online relation object first; then POS/CRM snapshots; then customer master address.
+    shippingAddress = _parseShippingAddress(json['shipping_address'])
+        ?? _parseShippingAddress(json['shipping_address_data'])
+        ?? billingAddress
+        ?? _addressFromCustomer(customer);
 
     isShippingFree = json['is_shipping_free'] ?? false;
     bringChangeAmount = double.tryParse('${json['bring_change_amount']}');
     bringChangeAmountCurrency = json['bring_change_amount_currency'];
     referAndEarnDiscount = double.tryParse(json['refer_and_earn_discount'].toString());
     totalTaxAmount = double.tryParse(json['total_tax_amount'].toString());
+  }
+
+  static ShippingAddress? _parseShippingAddress(dynamic value) {
+    if (value == null) {
+      return null;
+    }
+    if (value is Map<String, dynamic>) {
+      return ShippingAddress.fromJson(value);
+    }
+    if (value is Map) {
+      return ShippingAddress.fromJson(Map<String, dynamic>.from(value));
+    }
+    return null;
+  }
+
+  static ShippingAddress? _addressFromCustomer(Customer? customer) {
+    if (customer == null) {
+      return null;
+    }
+    final address = (customer.streetAddress ?? '').trim();
+    if (address.isEmpty) {
+      return null;
+    }
+    final name = '${customer.fName ?? ''} ${customer.lName ?? ''}'.trim();
+    return ShippingAddress(
+      contactPersonName: name.isNotEmpty ? name : (customer.phone ?? ''),
+      address: address,
+      city: customer.city,
+      zip: customer.zip,
+      phone: customer.phone,
+      country: customer.country,
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -218,21 +252,21 @@ class ShippingAddress {
 
   ShippingAddress.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    customerId = json['customer_id'].toString();
-    contactPersonName = json['contact_person_name'];
-    addressType = json['address_type'];
+    customerId = json['customer_id']?.toString();
+    contactPersonName = json['contact_person_name']?.toString();
+    addressType = json['address_type']?.toString();
     if(json['address']!=null){
-      address = json['address'];
+      address = json['address'].toString();
     }
-    city = json['city'];
-    zip = json['zip'];
-    phone = json['phone'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    state = json['state'];
-    country = json['country'];
-    latitude = json['latitude'];
-    longitude = json['longitude'];
+    city = json['city']?.toString();
+    zip = json['zip']?.toString();
+    phone = json['phone']?.toString();
+    createdAt = json['created_at']?.toString();
+    updatedAt = json['updated_at']?.toString();
+    state = json['state']?.toString();
+    country = json['country']?.toString();
+    latitude = json['latitude']?.toString();
+    longitude = json['longitude']?.toString();
   }
 
   Map<String, dynamic> toJson() {

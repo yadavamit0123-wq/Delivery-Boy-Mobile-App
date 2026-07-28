@@ -260,7 +260,7 @@ class OrderHistoryItemWidget extends StatelessWidget {
                       ),
 
                       Text(
-                        orderModel!.expectedDate != null ? DateConverter.formatDateToDayMonthYear(DateTime.parse(orderModel!.expectedDate!.split(' at ').first)) : '--',
+                        DateConverter.formatExpectedDeliveryDate(orderModel!.expectedDate),
                         style: rubikMedium.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).hintColor),
                       ),
 
