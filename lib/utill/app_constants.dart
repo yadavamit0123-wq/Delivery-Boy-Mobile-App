@@ -9,7 +9,7 @@ class AppConstants {
   static const String appVersion = '5.0.1'; ///flutter SDK : 3.41.9
   static const String polylineMapKey = 'AIzaSyA_usa-2matJnaEuxFvNag8qhXL51w4vJM';
 
-  static const String baseUrl = 'https://palviagrico.paartech.in';
+  static const String baseUrl = 'https://palviconnect.com';
 
   static const String profileUri = '/api/v2/delivery-man/info';
   static const String configUri = '/api/v1/config';
